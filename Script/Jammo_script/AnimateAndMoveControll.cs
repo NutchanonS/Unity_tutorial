@@ -105,12 +105,12 @@ public class AnimateAndMoveControll : MonoBehaviour
     private void TryPickupItem()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Adjust the radius as needed
-        Cube nearestItem = null;
+        Item nearestItem = null;
         float nearestDistance = Mathf.Infinity;
 
         foreach (Collider collider in colliders)
         {
-            Cube itemPickup = collider.GetComponent<Cube>();
+            Item itemPickup = collider.GetComponent<Item>();
             if (itemPickup != null)
             {
                 float distance = Vector3.Distance(transform.position, itemPickup.transform.position);
