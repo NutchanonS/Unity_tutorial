@@ -6,20 +6,24 @@ public class ItemPickUp : InteractiveObject {
 
     public Item item;
 
-
+    
     public override void Interact()
     { 
         
-            base.Interact();
-            pickUp();
+        base.Interact();
+        
+        pickUp();
         
     }
-    void pickUp()
-    {
-        
-        
-            Destroy(gameObject);
-        
+
+
+    public void pickUp()
+    {   
+        Inventory.instance.Add(item);
+        Destroy(gameObject);
+
     }
+
+
 
 }

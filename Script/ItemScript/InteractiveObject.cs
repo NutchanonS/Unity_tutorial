@@ -19,10 +19,13 @@ public class InteractiveObject : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(player.position, interactItem.position);
-        if (distance <= radius && !hasInteract)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.E))
         {
-            hasInteract = true;
-            Interact();
+            if (distance <= radius && !hasInteract)
+            {
+                hasInteract = true;
+                Interact();
+            }
         }
     }
     public virtual void Interact()

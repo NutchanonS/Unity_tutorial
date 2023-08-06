@@ -77,10 +77,10 @@ public class AnimateAndMoveControll : MonoBehaviour
     void Update()
     {
 
-        if (UnityEngine.Input.GetKeyDown(KeyCode.E))
-        {
-            TryPickupItem();
-        }
+        //if (UnityEngine.Input.GetKeyDown(KeyCode.E))
+        //{
+        //    TryPickupItem();
+        //}
 
         handleRotation();
         handleAnimator();
@@ -105,12 +105,12 @@ public class AnimateAndMoveControll : MonoBehaviour
     private void TryPickupItem()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Adjust the radius as needed
-        Cube nearestItem = null;
+        ItemPickUp nearestItem = null;
         float nearestDistance = Mathf.Infinity;
 
         foreach (Collider collider in colliders)
         {
-            Cube itemPickup = collider.GetComponent<Cube>();
+            ItemPickUp itemPickup = collider.GetComponent<ItemPickUp>();
             if (itemPickup != null)
             {
                 float distance = Vector3.Distance(transform.position, itemPickup.transform.position);
@@ -125,7 +125,7 @@ public class AnimateAndMoveControll : MonoBehaviour
         if (nearestItem != null)
         {
             //nearestItem.PickupItem();
-            Destroy(nearestItem.gameObject);
+            nearestItem.pickUp();
         }
     }
     private void OnDrawGizmosSelected()
