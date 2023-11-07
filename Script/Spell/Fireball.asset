@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375683c899870c14186c847c22a157fa, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  spelltype: projectile
   DamageAmount: 10
   ManaCost: 5
   Lifetime: 2

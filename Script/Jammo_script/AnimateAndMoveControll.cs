@@ -42,7 +42,7 @@ public class AnimateAndMoveControll : MonoBehaviour
     [SerializeField] ParticleSystem hitEffect;
     // eiei
     bool playerBusy = false;
-    Interactable target;
+    EnemyInteract target;
     bool IsStop = false;
     [SerializeField]  bool Canhit = false;
 
@@ -82,7 +82,7 @@ public class AnimateAndMoveControll : MonoBehaviour
 
             if (hit.transform.CompareTag("Enemy"))
             {
-                target = hit.transform.GetComponent<Interactable>();
+                target = hit.transform.GetComponent<EnemyInteract>();
                 //if (clickEffect != null)
                 //{ Instantiate(hitEffect, hit.transform.position + new Vector3(0, 0.5f, 0), hitEffect.transform.rotation); }
             }
@@ -198,27 +198,33 @@ public class AnimateAndMoveControll : MonoBehaviour
         if (playerBusy) return;
 
         playerBusy = true;
+        //animator.Play("Attack1");
+        animator.SetTrigger("Attack1");
+        //animator.SetBool("Attack1", true);
 
-        switch (target.interactionType)
-        {
-            case InteractableType.Enemy:
-                //animator.Play("Attack1");
-                animator.SetTrigger("Attack1");
-                //animator.SetBool("Attack1", true);
+        Invoke(nameof(SendAttack), attackDelay);
+        Invoke(nameof(ResetBusyState), attackSpeed);
 
-                Invoke(nameof(SendAttack), attackDelay);
-                Invoke(nameof(ResetBusyState), attackSpeed);
-                break;
-            //case InteractableType.Item:
+        //switch (target.interactionType)
+        //{
+        //    case InteractableType.Enemy:
+        //        //animator.Play("Attack1");
+        //        animator.SetTrigger("Attack1");
+        //        //animator.SetBool("Attack1", true);
 
-                //    animator.Play("GatheringItem");
-                //    target.InteractWithItem();
-                //    target = null;
+        //        Invoke(nameof(SendAttack), attackDelay);
+        //        Invoke(nameof(ResetBusyState), attackSpeed);
+        //        break;
+        //    //case InteractableType.Item:
 
-                //    Invoke(nameof(ResetBusyState), 0.5f);
-                //    break;
-        }
-        //Invoke(nameof(ResetBusyState), attackSpeed);
+        //        //    animator.Play("GatheringItem");
+        //        //    target.InteractWithItem();
+        //        //    target = null;
+
+        //        //    Invoke(nameof(ResetBusyState), 0.5f);
+        //        //    break;
+        //}
+        ////Invoke(nameof(ResetBusyState), attackSpeed);
     }
     void SendAttack()
     {

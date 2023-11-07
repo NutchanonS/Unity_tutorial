@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerMagicSystem : MonoBehaviour
 {
-    [SerializeField] private Spell SpellToCast;
+    [SerializeField] private Spell SpellToCast1;
+    [SerializeField] private Spell SpellToCast2;
 
     [SerializeField] public float maxMana = 100f;
     [SerializeField] public float currentMana;
@@ -39,6 +40,7 @@ public class PlayerMagicSystem : MonoBehaviour
     public Canvas ability2Canvas;
     public Image ability2RangeIndicator;
     public float maxAbility2Distance = 7;
+    [SerializeField] LayerMask clickableLayers;
 
 
     [Header("Ability 3")]
@@ -70,7 +72,7 @@ public class PlayerMagicSystem : MonoBehaviour
         currentMana = maxMana;
         //playerinput.CharacterControll.SpellCast2.started += spellCastButton;
         //playerinput.CharacterControll.SpellCast2.canceled += spellCastButton;
-        playerinput.CharacterControll.SpellCast2.performed += spellCastButton;
+        //playerinput.CharacterControll.SpellCast2.performed += spellCastButton;
     }
     // Start is called before the first frame update
     void Start()
@@ -132,14 +134,14 @@ public class PlayerMagicSystem : MonoBehaviour
         //}
     }
 
-    void spellCastButton(InputAction.CallbackContext context)
-    {
-        CastSpell();
-    }
-    void CastSpell()
-    {
-        Instantiate(SpellToCast, castPoint.position, castPoint.rotation);
-    }
+    //void spellCastButton(InputAction.CallbackContext context)
+    //{
+    //    CastSpell();
+    //}
+    //void CastSpell()
+    //{
+    //    Instantiate(SpellToCast1, castPoint.position, castPoint.rotation);
+    //}
     private void OnEnable()
     {
         playerinput.Enable();
@@ -165,8 +167,8 @@ public class PlayerMagicSystem : MonoBehaviour
     }
     void Ability2Canvas_handle()
     {
-        int layerMask = ~LayerMask.GetMask("Player");
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        //int layerMask = ~LayerMask.GetMask("Player");
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickableLayers))
         {
             if(hit.collider.gameObject != this.gameObject)
             {
@@ -174,7 +176,7 @@ public class PlayerMagicSystem : MonoBehaviour
             }
         }
         var hitPosDir = (hit.point - transform.position).normalized;   
-        float distance = Vector3.Distance(hitPosDir, transform.position);
+        float distance = Vector3.Distance(hit.point, transform.position);
         distance = Mathf.Min(distance, maxAbility2Distance);
 
         var newHitPos = transform.position + hitPosDir * distance;
@@ -207,7 +209,7 @@ public class PlayerMagicSystem : MonoBehaviour
             ability2RangeIndicator.enabled = false;
             ability3Canvas.enabled = false;
             ability3Cone.enabled = false;
-            Cursor.visible = false;
+            //Cursor.visible = false;
 
         }
         if (ability1SkillShot.enabled && Input.GetMouseButton(0))
@@ -215,10 +217,10 @@ public class PlayerMagicSystem : MonoBehaviour
             isAbility1Cooldown = true;
             currentAbility1Cooldown = ability1Cooldown;
 
-            Instantiate(SpellToCast, castPoint.position, ability1Canvas.transform.rotation);
+            Instantiate(SpellToCast1, castPoint.position, ability1Canvas.transform.rotation);
             ability1Canvas.enabled = false;
             ability1SkillShot.enabled = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
         }
 
     }
@@ -234,17 +236,17 @@ public class PlayerMagicSystem : MonoBehaviour
             ability1SkillShot.enabled = false;
             ability3Canvas.enabled = false;
             ability3Cone.enabled = false;
-            Cursor.visible = false;
+            //Cursor.visible = false;
         }
         if (ability2RangeIndicator.enabled && Input.GetMouseButton(0))
         {
             isAbility2Cooldown = true;
             currentAbility2Cooldown = ability2Cooldown;
 
-            Instantiate(SpellToCast, castPoint.position, ability2RangeIndicator.transform.rotation);
+            Instantiate(SpellToCast2, ability2Canvas.transform.position, ability2Canvas.transform.rotation);
             ability2Canvas.enabled = false;
             ability2RangeIndicator.enabled = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
         }
 
     }
@@ -260,17 +262,17 @@ public class PlayerMagicSystem : MonoBehaviour
             ability2RangeIndicator.enabled = false;
             ability1Canvas.enabled = false;
             ability1SkillShot.enabled = false;
-            Cursor.visible = false;
+            //Cursor.visible = false;
         }
         if (ability3Cone.enabled && Input.GetMouseButton(0))
         {
             isAbility3Cooldown = true;
             currentAbility3Cooldown = ability3Cooldown;
 
-            Instantiate(SpellToCast, castPoint.position, ability3Cone.transform.rotation);
+            Instantiate(SpellToCast1, castPoint.position, ability3Cone.transform.rotation);
             ability3Canvas.enabled = false;
             ability3Cone.enabled = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
         }
 
     }

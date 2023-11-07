@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Spell", menuName = "Spells")]
 public class SpellScriptableObject : ScriptableObject
 {
+    public string spelltype = "AOE";//AOE, projectile, heal
     public float DamageAmount = 10f;
     public float ManaCost = 5f;
     public float Lifetime = 2f;
